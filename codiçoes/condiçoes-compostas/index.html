@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+            <input type="number" id="hora">
+            <button onclick="verificar()">verificar</button>
+
+        <div class="res"></div>
+    </form>
+
+    
+
+    <script>
+
+
+        function verificar() {
+            var hora = document.querySelector('#hora').value
+            var res = document.querySelector('.res')
+
+            if (hora < 12) {
+                res.innerHTML = 'bom dia'
+            } else if (hora <= 18) {
+                    res.innerHTML = 'boa tarde'
+            } else { (hora <= 24)
+                res.innerHTML = 'boa noite'
+            } if (hora == 0 || hora < 5) {
+                res.innerHTML = 'boa madrugada'
+            } 
+    }
+    </script>
+
+
+</body>
+</html>

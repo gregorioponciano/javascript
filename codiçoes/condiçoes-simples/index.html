@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <input type="number" id="idade">
+    <button id="votar" onclick="voto()">votar</button> <br>
+    <div class="res"></div>
+
+
+
+    <script>
+        function voto() {
+            var idade = document.querySelector('#idade').value
+            var res = document.querySelector('.res')
+
+            if (idade < 16) {
+                res.innerHTML = ('nao vota')
+            }
+            else if (idade < 18 || idade > 65) {
+                res.innerHTML = ('voto opicional')
+            } else {
+                res.innerHTML = ('voto obrigatorio')
+            }
+            }
+        
+    </script>
+
+</body>
+</html>

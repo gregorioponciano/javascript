@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="res"></div>
+
+    <script>
+        var res = document.querySelector('.res')
+        var agora = new Date()
+        var diaSem = agora.getDay()
+
+        switch(diaSem) {
+           case 0:
+            res.innerHTML = 'domingo' 
+            break   
+            case 1:
+            res.innerHTML = 'segunda' 
+            break
+            case 2:
+            res.innerHTML = 'terça' 
+            break
+            case 3:
+            res.innerHTML = 'quarta' 
+            break
+            case 4:
+            res.innerHTML = 'quinta' 
+            break
+            case 5:
+            res.innerHTML = 'sexta' 
+            break
+            case 6:
+            res.innerHTML = 'sabado' 
+            break
+            default: 
+            res.innerHTML = 'Erro dia invalido'
+            break
+        }
+    </script>
+
+</body>
+</html>

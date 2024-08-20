@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" name="n1" id="n1" required placeholder="digite um numero">
+
+    <button onclick="teste()">teste</button>
+    <div id="res"></div>
+
+    <script>
+        function teste() {
+            var n1 = document.querySelector('#n1').value
+            var res = document.querySelector('#res')
+
+            if ( n1%2 == 0) {
+
+                res.innerHTML = `${n1} é par`
+
+            } else {
+                res.innerHTML =  `${n1} é impar`
+            }
+
+
+
+        }
+    </script>
+
+
+</body>
+</html>
