@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-                    background-color: rgba(0, 0, 0, 0.849);
+                    background-color: rgb(11, 39, 65);
                     border-radius: 25px;
                     padding: 25px;
                     width: 90%;  /* width 90% + max-width 450px funciona para mobile e desktop*/

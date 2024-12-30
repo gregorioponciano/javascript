@@ -1,35 +1,49 @@
+const key = "83fae9caeae8113a406628dd5cb2f6bc";
 
-
-const key = "83fae9caeae8113a406628dd5cb2f6bc"
-
-
-        //botao de burcar ligado ao input da cidade
+// Função chamada ao clicar no botão "Buscar"
 function cliqueibuscar() {
-
-    const cidade = document.querySelector(".input-cidade").value
-
-    buscarcidade(cidade)
+    const cidade = document.querySelector(".input-cidade").value;
+    if (cidade) {
+        buscarcidade(cidade);
+    } else {
+        alert("Por favor, insira o nome de uma cidade.");
+    }
 }
 
-//buscar cidade
+// Buscar dados da cidade na API OpenWeather
 async function buscarcidade(cidade) {
+    try {
+        const resposta = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${key}&lang=pt_br&units=metric`);
+        const dados = await resposta.json();
 
-    const dados = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${key}&lang=pt_br&units=metric`).then( resposta => resposta.json()) 
-
-    colocardadosnatela(dados)
-    
+        if (dados.cod === 200) {
+            colocardadosnatela(dados);
+        } else {
+            alert("Cidade não encontrada. Tente novamente.");
+        }
+    } catch (error) {
+        alert("Erro ao buscar os dados. Verifique sua conexão com a internet.");
+    }
 }
 
+// Exibir os dados na tela
 function colocardadosnatela(dados) {
-    
-    document.querySelector(".cidade").innerHTML = "Tempo em " + dados.name
-    document.querySelector(".temp").innerHTML = "Temperatura de " + Math.floor( dados.main.temp) + "°C"
-    document.querySelector(".texto-previsao").innerHTML = dados.weather[0].description
-    document.querySelector(".umidade").innerHTML = "umidade de " + dados.main.humidity + "%"
-    
-    
+    const cidade = document.querySelector(".cidade");
+    const temp = document.querySelector(".temp");
+    const textoPrevisao = document.querySelector(".texto-previsao");
+    const umidade = document.querySelector(".umidade");
+    const iconeClima = document.querySelector("#icone-clima");
+
+    cidade.innerHTML = `Tempo em ${dados.name}`;
+    temp.innerHTML = `Temperatura: ${Math.round(dados.main.temp)}°C`;
+    textoPrevisao.innerHTML = `AGORA ${dados.weather[0].description}`;
+    umidade.innerHTML = `Umidade: ${dados.main.humidity}%`;
+
+    const icone = dados.weather[0].icon;
+    iconeClima.src = `https://openweathermap.org/img/wn/${icone}@2x.png`;
+    iconeClima.alt = dados.weather[0].description;
+    iconeClima.style.display = "block";
+
+
 }
-
-
-
 
