@@ -36,8 +36,12 @@ function colocardadosnatela(dados) {
 
     cidade.innerHTML = `Tempo em ${dados.name}`;
     temp.innerHTML = `Temperatura: ${Math.round(dados.main.temp)}°C`;
-    textoPrevisao.innerHTML = `AGORA ${dados.weather[0].description}`;
+    textoPrevisao.innerHTML = ` ${dados.weather[0].description}`;
     umidade.innerHTML = `Umidade: ${dados.main.humidity}%`;
+
+    temp.style.color = 'red'
+    textoPrevisao.style.color = 'rgb(129, 194, 44)';
+    umidade.style.color = 'rgb(0, 162, 255)';
 
     const icone = dados.weather[0].icon;
     iconeClima.src = `https://openweathermap.org/img/wn/${icone}@2x.png`;
