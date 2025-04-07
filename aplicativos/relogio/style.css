@@ -1,0 +1,83 @@
+@charset "UTF8";
+
+:root {
+                        --color-background: #ffffff;
+                        --color-min-hora: #d628c8;
+                        --color-segundos: #ff0000;
+                        --color-relogio: #000000;
+}
+
+body { 
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100dvh;
+                        background-image: url(numeros.png);
+                        background-repeat: no-repeat;
+                        background-color: var(--color-background);
+                        background-position: center center;
+                        background-size: 310px;
+                        z-index: 1000;
+
+}
+
+.clock {
+                        width: 200px;
+                        height: 200px;
+                        border: 5px solid white;
+                        background: var(--color-relogio);
+                        border-radius: 50%;
+                        position: relative;
+}
+
+.hand {
+                        position: absolute;
+                        bottom: 50%;
+                        left: 50%;
+                        transform-origin: bottom;
+                        background: white;
+                        transform: translateX(-50%) rotate(0deg);
+}
+.hour{
+                        width: 6px;
+                        height: 50px;
+}
+.minute {
+                        width: 4px;
+                        height: 70px;
+}
+.second{
+                        width: 2px;
+                        height: 80px;
+                        background: var(--color-segundos);
+}
+
+        /*MAX WIDTH 400PX*/
+@media screen and (min-width: 350px) and (max-width: 400px) {
+        body {
+                background-size: 307px;
+        }
+}
+
+        /*MAX WIDTH 250PX*/
+@media screen and (max-width: 350px) {
+    .clock {
+        width: 150px;
+        height: 150px;
+    }
+    body {
+        background-size: 245px;
+    }
+
+    .second{
+       height: 63px;
+    }
+    .minute {
+        width: 3px;
+        height: 60px;
+    }
+    .hour{
+        width: 6px;
+        height: 45px;
+    }
+}
