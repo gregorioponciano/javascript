@@ -1,97 +1,111 @@
 @charset "UTF-8";
 
 * {
-        margin: 0px;
-        padding: 0px;
-        text-align: center;
-        margin: auto;
-        font-family: Arial, Helvetica, sans-serif;
+                                margin: 0px;
+                                padding: 0px;
+                                text-align: center;
+                                margin: auto;
+                                font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
 
+                                box-sizing: border-box;
+  
+}
 
-        background-image: url(../imagens/fundo.png);
-        height: 100dvh;   
+.fundo {
+                                background-image: url(../imagens/fundo.png);
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                background-position: center center;
+                                height: 100dvh; 
 }
 
 h1 {
-              
-                color: #9db0d8;
-                text-shadow: 3px 3px 4px black;
-                background-color: #6D7DB0;
-                width: 200px;
-                margin: auto;
+                                     
+                                font-size: 2.5rem;
+                                font-weight: bold;
+                                background: linear-gradient(270deg, red, orange, yellow, green, rgb(123, 123, 223), indigo, violet);
+                                background-size: 1000% 1000%;
+                /*-webkit-*/    background-clip: text; /*background-clip: text faz com que o fundo colorido se aplique somente às letras.*/
+                               -webkit-text-fill-color: transparent;
+                                animation: arcoIris 5s linear infinite;
 }
 
+   @keyframes arcoIris {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
 .div {
-                width: 90%;
-                height: 20px;
-                background-color: rgba(255, 255, 255, 0.384);
-                margin: 10px;
+                                width: 90%;
+                                height: 20px;
+                                background-color: rgba(255, 255, 255, 0.384);
+                                margin: 10px;
 }
 
 h2 {
-        color: #9db0d8;
-        font-family: monospace;
+                                color: #9db0d8;
+                                font-family: monospace;
 }
 
 #resultado {
-                height: 50px;
-                width: 220px;
-                background-color: white;
-                margin: 15px;
-                color: black;
-                text-align: right;
-                font-size: 40px;
+                                height: 50px;
+                                width: 220px;
+                                background-color: white;
+                                margin: 15px;
+                                color: black;
+                                text-align: right;
+                                font-size: 40px;
 }
 
 .calculadora {
-                position: absolute;
-                background-color: black;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border-radius: 15px;
-                padding: 15px;
+                                position: absolute;
+                                background-color: black;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                border-radius: 15px;
+                                padding: 15px;
 }
 
 .botao {
-                width: 50px;
-                height: 50px;
-                font-size: 17px;
-                margin: 2px;
-                cursor: pointer;
-                background-color: #6D7DB0;
-                border: none;
-                border-radius: 2px;
-                color: white;
+                                width: 50px;
+                                height: 50px;
+                                font-size: 17px;
+                                margin: 2px;
+                                cursor: pointer;
+                                background-color: #6D7DB0;
+                                border: none;
+                                border-radius: 2px;
+                                color: white;
 }
 
 .botao:hover {
-                background-color: rgba(48, 44, 44, 0.417);
-                color: red;
+                                background-color: rgba(48, 44, 44, 0.417);
+                                color: red;
 }
 
 #botao-0 {
-                width: 106px;
+                                width: 106px;
 }
 #botao-igual {
-                height: 106px;
+                                height: 106px;
 }
 
 footer {
-                background-color: black;
-                height: 50px;
-                width: 100vw;
-                display: flex;
-                position: fixed;
-                bottom: 0;
-                justify-content: center;
-                align-items: center;
+                                background-color: black;
+                                height: 50px;
+                                width: 100vw;
+                                display: flex;
+                                position: fixed;
+                                bottom: 0;
+                                justify-content: center;
+                                align-items: center;
 }
 
 .p-footer {
-                color: white;
+                                color: white;
 }
 
