@@ -9,6 +9,12 @@ function cliqueibuscar() {
         alert("Por favor, insira o nome de uma cidade.");
     }
 }
+        // Escuta a tecla pressionada dentro do input
+document.querySelector('.input-cidade').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        cliqueibuscar(); // chama a função ao apertar Enter
+    }
+});
 
 // Buscar dados da cidade na API OpenWeather
 async function buscarcidade(cidade) {
