@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro e Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Nosso Sistema!</h1>
+        <nav>
+            <button id="openRegisterModalBtn" class="auth-btn">Cadastrar</button>
+            <button id="openLoginModalBtn" class="auth-btn">Login</button>
+
+            <span id="headerWelcomeMessage" style="display: none; color: white; margin-right: 15px;"></span>
+            <button id="goToDashboardBtn" style="display: none;">Ir para Painel</button>
+            <button id="logoutBtnHeader" style="display: none;">Sair</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="welcomeSection" style="display: block;">
+            <h2>Acesse sua conta ou crie uma nova!</h2>
+            <p>Clique em "Login" para entrar ou "Cadastrar" para criar sua conta e acessar todos os recursos.</p>
+        </section>
+
+        <section id="userArea" style="display: none;">
+            <h2 id="welcomeMessage">Olá, Usuário!</h2>
+            <p>Você já está logado. Utilize o botão abaixo para ir para o seu painel exclusivo.</p>
+            <button id="goToDashboardBtnMain">Ir para o Painel Completo</button>
+            <button id="logoutBtnMain">Sair da Sessão</button>
+        </section>
+    </main>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegisterModal">&times;</span>
+            <h2>Cadastro</h2>
+            <form id="registerForm">
+                <label for="registerFullName">Nome Completo:</label>
+                <input type="text" id="registerFullName" placeholder="Nome do Cliente" required>
+
+                <label for="registerPhone">Telefone:</label>
+                <input type="text" id="registerPhone" placeholder="(XX) XXXXX-XXXX" required>
+
+                <label for="registerAddress">Endereço:</label>
+                <input type="text" id="registerAddress" placeholder="Bairro e rua" required>
+
+                <label for="registerCpf">CPF:</label>
+                <input type="text" id="registerCpf" placeholder="123.456.789-00" maxlength="14" required>
+
+                <label for="registerPassword">Nova Senha:</label>
+                <input type="password" id="registerPassword" required>
+
+                <label for="confirmRegisterPassword">Confirme Nova Senha:</label>
+                <input type="password" id="confirmRegisterPassword" required>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+            <p id="registerMessage" class="message"></p>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginCpf">CPF:</label>
+                <input type="text" id="loginCpf" placeholder="123.456.789-00" maxlength="14" required>
+
+                <label for="loginPassword">Senha:</label>
+                <input type="password" id="loginPassword" required>
+
+                <button type="submit">Entrar</button>
+            </form>
+            <p id="loginMessage" class="message"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Usuário</title>
+    <link rel="stylesheet" href="../style.css"> </head>
+<body>
+    <header>
+        <h1 id="welcomeUserMessage">Painel do Usuário</h1>
+        <nav>
+            <button id="logoutBtn">Sair</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboardContent">
+            <h2>Bem-vindo à sua Área Exclusiva!</h2>
+            <p>Aqui você encontrará informações e recursos personalizados.</p>
+            <p>Seu ID de usuário é: <span id="userIdDisplay"></span></p>
+            </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const logoutBtn = document.getElementById('logoutBtn');
+            const welcomeUserMessage = document.getElementById('welcomeUserMessage');
+            const userIdDisplay = document.getElementById('userIdDisplay');
+
+            // Função para obter e exibir as informações do usuário
+            async function getUserInfo() {
+                try {
+                    const response = await fetch('/user-info');
+                    const data = await response.json();
+
+                    if (data.success) {
+                        welcomeUserMessage.textContent = `Bem-vindo, ${data.fullName}!`;
+                        userIdDisplay.textContent = data.userId;
+                    } else {
+                        // Se por algum motivo a sessão cair ou o usuário não estiver autorizado, redireciona para a raiz
+                        window.location.href = '/';
+                    }
+                } catch (error) {
+                    console.error('Erro ao obter informações do usuário:', error);
+                    window.location.href = '/'; // Redireciona em caso de erro
+                }
+            }
+
+            getUserInfo(); // Chama a função ao carregar a página
+
+            // Event listener para o botão de Logout
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/logout', {
+                        method: 'POST',
+                    });
+                    const data = await response.json();
+                    if (data.success && data.redirect) {
+                        alert('Logout realizado com sucesso!');
+                        window.location.href = data.redirect; // Redireciona para a página inicial
+                    } else {
+                        alert('Erro ao fazer logout: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Erro ao fazer logout:', error);
+                    alert('Erro de conexão com o servidor ao tentar logout.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
