@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta de Prêmios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f0f0;
+        }
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .roleta-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .roleta {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: conic-gradient(#f00 0% 12.5%, #0f0 12.5% 25%, #00f 25% 37.5%, #ff0 37.5% 50%, #0ff 50% 62.5%, #f0f 62.5% 75%, #fa0 75% 87.5%, #a0f 87.5% 100%);
+        }
+        .spin-btn {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .main-site {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Roleta de prêmios com o botão X -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <div class="roleta-container">
+                <div class="roleta" id="roleta">
+                    <button id="spinBtn" class="spin-btn" onclick="spin()">Rodar (1)</button>
+                </div>
+            </div>
+            <button class="close-btn" onclick="closeRoleta()">X</button>
+            <div id="resultado" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal do site -->
+    <div id="mainSite" class="main-site">
+        <h1>Bem-vindo ao site!</h1>
+        <p>O conteúdo do site está disponível mesmo enquanto a roleta está aberta. Feche a roleta ou rode-a para continuar.</p>
+    </div>
+
+    <script>
+        let chances = 1;
+
+        function closeRoleta() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function spin() {
+            if (chances > 0) {
+                const roleta = document.getElementById('roleta');
+                const randomDegree = Math.floor(Math.random() * 360);
+                roleta.style.transition = 'transform 4s ease-out';
+                roleta.style.transform = `rotate(${randomDegree + 3600}deg)`; // Rotação extra para mais efeito
+                
+                chances--;
+                const spinBtn = document.getElementById('spinBtn');
+                spinBtn.textContent = `Rodar (${chances})`;
+                spinBtn.classList.add('disabled');
+                spinBtn.disabled = true;
+
+                // Simulação de seleção de prêmio
+                const premios = ["Prêmio 1", "Prêmio 2", "Prêmio 3", "Prêmio 4", "Prêmio 5", "Prêmio 6", "Prêmio 7", "Prêmio 8"];
+                const premioIndex = Math.floor(randomDegree / (360 / premios.length));
+
+                setTimeout(() => {
+                    document.getElementById('resultado').textContent = `Você ganhou: ${premios[premioIndex]}`;
+                }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>

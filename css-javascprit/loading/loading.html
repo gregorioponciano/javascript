@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Carregamento</title>
+
+    <style>
+        .spiner {
+            background-color: rgb(255, 255, 255);
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            border: 25px solid rgb(255, 255, 255);
+            border-top: 20px solid black;
+            /* Remover animação por padrão */
+            transition: transform 2.5s linear;
+        }
+
+        /* Animação rotativa */
+        @keyframes ani {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Classe para adicionar animação */
+        .animated {
+            animation: ani 2.5s linear infinite;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="spiner" id="spinner"></div>
+    <button onclick="startSpinner()">Clique para ativar o spinner</button>
+
+    <script>
+        function startSpinner() {
+            var spinner = document.getElementById('spinner');
+            spinner.classList.add('animated'); // Adiciona a animação ao spinner
+        }
+    </script>
+
+</body>
+</html>

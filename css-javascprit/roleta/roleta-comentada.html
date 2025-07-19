@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta de Prêmios</title>
+    <style>
+        /* Define estilos globais para remover margens e definir o box-sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* O corpo e o HTML ocupam 100% da altura */
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        /* Cor de fundo do corpo da página */
+        body {
+            background-color: #f0f0f0;
+        }
+        /* Estilo da sobreposição (modal) da roleta */
+        .overlay {
+    position: fixed; /* Fixa no topo da página */
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Prioridade máxima de sobreposição */
+    pointer-events: none; /* Permite interação com o site atrás */
+}
+
+/* Ajustes para garantir que a roleta e seus elementos recebam cliques */
+.overlay-content {
+    pointer-events: auto; /* Permite que a roleta receba cliques */
+}
+/* Estilo do botão "X" para fechar o modal */
+.close-btn {
+    position: absolute;
+    top: 30%; /* Ajuste de distância do topo da roleta */
+    right: 30%; /* Ajuste de distância do lado direito da roleta */
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%; /* Faz o botão ser circular */
+    z-index: 10; /* Garante que o botão apareça acima da roleta */
+}
+        /* Container da roleta para centralizar */
+        .roleta-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0f0;
+        }
+        /* Estilo da roleta em si */
+        .roleta {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%; /* Forma circular */
+            border: 5px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Definição do gradiente para simular os diferentes prêmios */
+            background: conic-gradient(#f00 0% 12.5%, #0f0 12.5% 25%, #00f 25% 37.5%, #ff0 37.5% 50%, #0ff 50% 62.5%, #f0f 62.5% 75%, #fa0 75% 87.5%, #a0f 87.5% 100%);
+            transition: transform 4s ease-out; /* Transição suave ao rodar */
+        }
+        /* Estilo do botão "Rodar" no centro da roleta */
+        .spin-btn {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%; /* Botão circular */
+            background-color: #333;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10; /* Certifica que fica acima da roleta */
+        }
+        /* Estilo para desabilitar o botão após rodar */
+        .disabled {
+            background-color: gray;
+            cursor: not-allowed; /* Cursor indica que o botão está desabilitado */
+        }
+        /* Estilo da área onde o resultado do prêmio será mostrado */   
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        /* Estilo do conteúdo principal do site, inicialmente oculto */
+        .main-site {
+            padding: 20px;
+            text-align: center;
+        }
+        /* Classe para esconder elementos (usada para ocultar site ou roleta) */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Roleta de prêmios com o botão X -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <div class="roleta-container">
+                <!-- Div que representa a roleta -->
+                <div class="roleta" id="roleta"></div>
+                <!-- Botão no centro da roleta que inicia a rotação -->
+                <button id="spinBtn" class="spin-btn" onclick="spin()">Rodar (1)</button>
+            </div>
+            <!-- Botão para fechar a roleta -->
+            <button class="close-btn" onclick="closeRoleta()">X</button>
+            <!-- Exibição do resultado do prêmio -->
+            <div id="resultado" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal do site que estará visível mesmo com a roleta aberta -->
+    <div id="mainSite" class="main-site">
+        <h1>Bem-vindo ao site!</h1>
+        <p>O conteúdo do site está disponível enquanto você utiliza a roleta.</p>
+        <!-- Botão para reabrir a roleta -->
+        <button onclick="openRoleta()">Abrir Roleta Novamente</button>
+    </div>
+
+    <script>
+let chances = 1; // Variável que controla o número de chances para rodar a roleta
+let roletaFechada = false; // Variável para verificar se a roleta foi fechada
+
+// Função para fechar a roleta
+function closeRoleta() {
+    roletaFechada = true; // Marca que a roleta foi fechada
+    document.getElementById('overlay').classList.add('hidden'); // Esconde o modal da roleta
+}
+
+// Função para abrir a roleta novamente
+function openRoleta() {
+    roletaFechada = false; // Marca que a roleta não foi fechada
+    const spinBtn = document.getElementById('spinBtn');
+
+    if (chances <= 0) { // Se o usuário já tiver rodado a roleta
+        spinBtn.textContent = `Rodar (0)`; // Atualiza o texto do botão para "Rodar (0)"
+        spinBtn.classList.add('disabled'); // Adiciona a classe "disabled" para desativar o botão
+        spinBtn.disabled = true; // Desabilita o botão para garantir que não pode ser clicado
+    } else {
+        spinBtn.textContent = `Rodar (${chances})`; // Atualiza o texto do botão com as chances restantes
+    }
+
+    document.getElementById('roleta').style.transform = 'rotate(0deg)';  // Reseta a rotação da roleta
+    document.getElementById('resultado').textContent = '';  // Limpa o resultado anterior
+
+    document.getElementById('overlay').classList.remove('hidden'); // Mostra a roleta
+}
+
+// Função para rodar a roleta
+function spin() {
+    if (chances > 0) {
+        const roleta = document.getElementById('roleta');
+        const randomDegree = Math.floor(Math.random() * 360); // Gera um ângulo aleatório para rodar
+        roleta.style.transform = `rotate(${randomDegree + 3600}deg)`; // Adiciona rotações extras para mais efeito
+        
+        chances--; // Diminui a chance
+        const spinBtn = document.getElementById('spinBtn');
+        spinBtn.textContent = `Rodar (${chances})`; // Atualiza o botão com o número de chances
+        spinBtn.classList.add('disabled'); // Desabilita o botão após o uso
+        spinBtn.disabled = true;
+
+        // Definindo os prêmios
+        const premios = ["Prêmio 1", "Prêmio 2", "Prêmio 3", "Prêmio 4", "Prêmio 5", "Prêmio 6", "Prêmio 7"];
+        const premioIndex = Math.floor(randomDegree / (360 / premios.length)); // Calcula qual prêmio foi ganho com base no ângulo
+
+        setTimeout(() => {
+            document.getElementById('resultado').textContent = `Você ganhou: ${premios[premioIndex]}`; // Exibe o prêmio
+        }, 4000); // Exibe o resultado após a rotação parar
+    }
+}
+
+
+    </script>
+</body>
+</html>
